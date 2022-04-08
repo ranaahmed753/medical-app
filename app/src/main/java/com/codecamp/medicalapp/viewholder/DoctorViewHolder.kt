@@ -31,7 +31,7 @@ class DoctorViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(doctor : Doctor){
         dortorName.text = doctor.doctorName
-        doctor.doctorImage?.let { doctorImage.setImageResource(it) }
+        doctorImage.setImageResource(doctor.doctorImage)
         doctorDesignation.text = doctor.doctorDesignation
     }
 
