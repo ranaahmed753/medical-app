@@ -35,9 +35,16 @@ class DoctorViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         doctorDesignation.text = doctor.doctorDesignation
     }
 
-    fun onClick(widget : View, context: Context){
+    fun onClick(widget : View, context: Context, onDoSomething : (position : Int, holder : DoctorViewHolder) -> Unit,position: Int,holder: DoctorViewHolder){
         widget.setOnClickListener {
             context.fadeInAnimation(widget)
+            onDoSomething(position,holder)
+
         }
+    }
+
+    interface onItemClick{
+        fun onNavigateToCall(position : Int, holder : DoctorViewHolder)
+        fun onNavigateToDetailsPage(position: Int, holder: DoctorViewHolder)
     }
 }
