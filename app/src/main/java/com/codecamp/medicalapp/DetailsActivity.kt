@@ -7,6 +7,8 @@ import android.telecom.Call
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.codecamp.medicalapp.util.fadeInAnimation
+import com.codecamp.medicalapp.util.navigate
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.CornerFamily
 
@@ -19,6 +21,7 @@ class DetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
+        
         mDoctorImage = findViewById(R.id.doctorImage);
         val roundedImage = mDoctorImage.shapeAppearanceModel.toBuilder()
             .setAllCorners(CornerFamily.ROUNDED, 10f)
@@ -28,24 +31,24 @@ class DetailsActivity : AppCompatActivity() {
         mEmailButton = findViewById(R.id.emailLayout);
         mCallButton = findViewById(R.id.callLayout);
         mVideocamButton = findViewById(R.id.videoLayout);
+
         mBackButton.setOnClickListener {
-            mBackButton.startAnimation(AnimationUtils.loadAnimation(this,android.R.anim.fade_in));
-            startActivity(Intent(this,MainActivity::class.java));
-            finish();
+            fadeInAnimation(mBackButton)
+            navigate(this,MainActivity(),::finish)
         }
         mEmailButton.setOnClickListener {
-            mEmailButton.startAnimation(AnimationUtils.loadAnimation(this,android.R.anim.fade_in));
-
+            fadeInAnimation(mEmailButton)
+            navigate(this,CallActivity(),::finish)
         }
+
         mCallButton.setOnClickListener {
-            mCallButton.startAnimation(AnimationUtils.loadAnimation(this,android.R.anim.fade_in));
-            startActivity(Intent(applicationContext,CallActivity::class.java));
-            finish();
-
+            fadeInAnimation(mCallButton)
+            navigate(this,CallActivity(),::finish)
         }
-        mVideocamButton.setOnClickListener {
-            mVideocamButton.startAnimation(AnimationUtils.loadAnimation(this,android.R.anim.fade_in));
 
+        mVideocamButton.setOnClickListener {
+            fadeInAnimation(mVideocamButton)
+            navigate(this,CallActivity(),::finish)
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.codecamp.medicalapp.util
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
@@ -54,4 +55,10 @@ fun hasFixedSize(widget1: RecyclerView ,widget2: RecyclerView ,widget3: Recycler
     widget3.setHasFixedSize(true)
     widget4.setHasFixedSize(true)
     widget5.setHasFixedSize(true)
+}
+
+fun navigate(currentContext : Context, targetContext : Context, finish : () -> Unit){
+    val intent = Intent(currentContext,targetContext::class.java)
+    currentContext.startActivity(intent)
+    finish()
 }
