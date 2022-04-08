@@ -15,10 +15,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.codecamp.medicalapp.R.drawable
 import com.codecamp.medicalapp.adapter.*
 import com.codecamp.medicalapp.model.*
+import com.codecamp.medicalapp.util.*
+import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mNavigationDrawerIcon : ConstraintLayout;
+    //private lateinit var mNavigationDrawerIcon : ConstraintLayout;
     private lateinit var mAdultConstraintLayout : ConstraintLayout;
     private lateinit var mChildrenConstraintLayout : ConstraintLayout;
     private lateinit var mWomenConstraintLayout : ConstraintLayout;
@@ -60,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         mNestedScrollView = findViewById(R.id.nestedScrollView);
         mNestedScrollView.isSmoothScrollingEnabled = true;
 
-        mNavigationDrawerIcon = findViewById(R.id.navigationDrawerIcon);
+        //mNavigationDrawerIcon = findViewById(R.id.navigationDrawerIcon);
         mAdultRecyclerView = findViewById(R.id.adultRecyclerview);
         mDoctorRecyclerView = findViewById(R.id.doctorRecyclerView);
         mChildrenRecyclerView = findViewById(R.id.childrenRecyclerview);
@@ -77,13 +79,29 @@ class MainActivity : AppCompatActivity() {
         mWomenConstraintLayout = findViewById(R.id.womenConstraintLayout);
         mMenConstraintLayout = findViewById(R.id.menConstraintLayout);
 
+        hasFixedSize(mAdultRecyclerView,mDoctorRecyclerView,mChildrenRecyclerView,mWomenRecyclerView,mMenRecyclerView)
 
-        mAdultRecyclerView.setHasFixedSize(true)
-        mDoctorRecyclerView.setHasFixedSize(true)
-        mChildrenRecyclerView.setHasFixedSize(true)
-        mWomenRecyclerView.setHasFixedSize(true)
-        mMenRecyclerView.setHasFixedSize(true)
+        loadDoctors()
 
+        val doctors = arrayListOf<TextView>(mAdultText,mChildrenText,mWomenText,mMenText)
+        if(doctors[0] == mAdultText){
+            initAdult()
+        }
+        if(doctors[1] == mChildrenText){
+            initChildren()
+        }
+        if(doctors[2] == mWomenText){
+            initWomen()
+        }
+        if(doctors[3] == mMenText){
+            initMen()
+        }
+
+
+
+    }
+
+    private fun loadDoctors(){
         mAdultList = arrayListOf();
         mAdultAdapter = AdultAdapter(mAdultList,this);
 
@@ -98,11 +116,9 @@ class MainActivity : AppCompatActivity() {
 
         mMenList = arrayListOf();
         mMenAdapter = MenAdapter(mMenList,this);
+        show(mAdultConstraintLayout)
+        hide(mChildrenConstraintLayout,mWomenConstraintLayout,mMenConstraintLayout)
 
-        mAdultConstraintLayout.visibility = View.VISIBLE
-        mChildrenConstraintLayout.visibility = View.GONE
-        mWomenConstraintLayout.visibility = View.GONE
-        mMenConstraintLayout.visibility = View.GONE
 
         for(i in 0..10){
             mAdultList.add(Adult("Heart Specialist",drawable.handsome_doctor))
@@ -134,91 +150,75 @@ class MainActivity : AppCompatActivity() {
         mMenRecyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         mMenRecyclerView.adapter = mMenAdapter
 
-        mAdultText.setTextColor(Color.parseColor("#42879F"))
-        mAdultText.setBackgroundResource(drawable.item_text_back)
-        mChildrenText.setTextColor(Color.parseColor("#D2D1D3"))
-        mChildrenText.setBackgroundResource(drawable.item_inactive_back)
-        mWomenText.setTextColor(Color.parseColor("#D2D1D3"))
-        mWomenText.setBackgroundResource(drawable.item_inactive_back)
-        mMenText.setTextColor(Color.parseColor("#D2D1D3"))
-        mMenText.setBackgroundResource(drawable.item_inactive_back)
+        activeTextColor("#42879F",mAdultText)
+        activeTextBackground(drawable.item_text_back,mAdultText)
 
+        inactiveTextColor("#D2D1D3",mChildrenText,mWomenText,mMenText)
+        inactiveTextBackground(drawable.item_inactive_back,mChildrenText,mWomenText,mMenText)
+    }
+
+    private fun initAdult(){
         mAdultText.setOnClickListener {
-            mAdultText.startAnimation(AnimationUtils.loadAnimation(applicationContext,android.R.anim.fade_in))
 
-            mAdultText.setTextColor(Color.parseColor("#42879F"))
-            mAdultText.setBackgroundResource(drawable.item_text_back)
+            fadeInAnimation(mAdultText)
 
-            mChildrenText.setTextColor(Color.parseColor("#D2D1D3"))
-            mChildrenText.setBackgroundResource(drawable.item_inactive_back)
+            activeTextColor("#42879F",mAdultText)
+            activeTextBackground(drawable.item_text_back,mAdultText)
 
-            mWomenText.setTextColor(Color.parseColor("#D2D1D3"))
-            mWomenText.setBackgroundResource(drawable.item_inactive_back)
+            inactiveTextColor("#D2D1D3",mChildrenText,mWomenText,mMenText)
+            inactiveTextBackground(drawable.item_inactive_back,mChildrenText,mWomenText,mMenText)
 
-            mMenText.setTextColor(Color.parseColor("#D2D1D3"))
-            mMenText.setBackgroundResource(drawable.item_inactive_back)
+            show(mAdultConstraintLayout)
+            hide(mChildrenConstraintLayout,mWomenConstraintLayout,mMenConstraintLayout)
 
-            mAdultConstraintLayout.visibility = View.VISIBLE
-            mChildrenConstraintLayout.visibility = View.GONE
-            mWomenConstraintLayout.visibility = View.GONE
-            mMenConstraintLayout.visibility = View.GONE
-        }
-        mChildrenText.setOnClickListener {
-            mChildrenText.startAnimation(AnimationUtils.loadAnimation(applicationContext,android.R.anim.fade_in))
-            mChildrenText.setTextColor(Color.parseColor("#42879F"))
-            mChildrenText.setBackgroundResource(drawable.item_text_back)
-
-            mAdultText.setTextColor(Color.parseColor("#D2D1D3"))
-            mAdultText.setBackgroundResource(drawable.item_inactive_back)
-
-            mWomenText.setTextColor(Color.parseColor("#D2D1D3"))
-            mWomenText.setBackgroundResource(drawable.item_inactive_back)
-
-            mMenText.setTextColor(Color.parseColor("#D2D1D3"))
-            mMenText.setBackgroundResource(drawable.item_inactive_back)
-
-            mChildrenConstraintLayout.visibility = View.VISIBLE
-            mAdultConstraintLayout.visibility = View.GONE
-            mWomenConstraintLayout.visibility = View.GONE
-            mMenConstraintLayout.visibility = View.GONE
-        }
-        mWomenText.setOnClickListener {
-            mWomenText.startAnimation(AnimationUtils.loadAnimation(applicationContext,android.R.anim.fade_in))
-            mWomenText.setTextColor(Color.parseColor("#42879F"))
-            mWomenText.setBackgroundResource(drawable.item_text_back)
-
-            mAdultText.setTextColor(Color.parseColor("#D2D1D3"))
-            mAdultText.setBackgroundResource(drawable.item_inactive_back)
-
-            mChildrenText.setTextColor(Color.parseColor("#D2D1D3"))
-            mChildrenText.setBackgroundResource(drawable.item_inactive_back)
-
-            mMenText.setTextColor(Color.parseColor("#D2D1D3"))
-            mMenText.setBackgroundResource(drawable.item_inactive_back)
-
-            mWomenConstraintLayout.visibility = View.VISIBLE
-            mChildrenConstraintLayout.visibility = View.GONE
-            mAdultConstraintLayout.visibility = View.GONE
-            mMenConstraintLayout.visibility = View.GONE
-        }
-        mMenText.setOnClickListener {
-            mMenText.startAnimation(AnimationUtils.loadAnimation(applicationContext,android.R.anim.fade_in))
-            mMenText.setTextColor(Color.parseColor("#42879F"))
-            mMenText.setBackgroundResource(drawable.item_text_back)
-
-            mAdultText.setTextColor(Color.parseColor("#D2D1D3"))
-            mAdultText.setBackgroundResource(drawable.item_inactive_back)
-
-            mWomenText.setTextColor(Color.parseColor("#D2D1D3"))
-            mWomenText.setBackgroundResource(drawable.item_inactive_back)
-
-            mChildrenText.setTextColor(Color.parseColor("#D2D1D3"))
-            mChildrenText.setBackgroundResource(drawable.item_inactive_back)
-
-            mMenConstraintLayout.visibility = View.VISIBLE
-            mChildrenConstraintLayout.visibility = View.GONE
-            mWomenConstraintLayout.visibility = View.GONE
-            mAdultConstraintLayout.visibility = View.GONE
         }
     }
+    private fun initChildren(){
+        mChildrenText.setOnClickListener {
+            fadeInAnimation(mChildrenText)
+
+            activeTextColor("#42879F",mChildrenText)
+            activeTextBackground(drawable.item_text_back,mChildrenText)
+
+            inactiveTextColor("#D2D1D3",mAdultText,mWomenText,mMenText)
+            inactiveTextBackground(drawable.item_inactive_back,mAdultText,mWomenText,mMenText)
+
+            show(mChildrenConstraintLayout)
+            hide(mAdultConstraintLayout,mWomenConstraintLayout,mMenConstraintLayout)
+
+        }
+    }
+    private fun initWomen(){
+        mWomenText.setOnClickListener {
+
+            fadeInAnimation(mWomenText)
+
+            activeTextColor("#42879F",mWomenText)
+            activeTextBackground(drawable.item_text_back,mWomenText)
+
+            inactiveTextColor("#D2D1D3",mAdultText,mChildrenText,mMenText)
+            inactiveTextBackground(drawable.item_inactive_back,mAdultText,mChildrenText,mMenText)
+
+            show(mWomenConstraintLayout)
+            hide(mChildrenConstraintLayout,mAdultConstraintLayout,mMenConstraintLayout)
+
+        }
+    }
+    private fun initMen(){
+        mMenText.setOnClickListener {
+
+            fadeInAnimation(mMenText)
+
+            activeTextColor("#42879F",mMenText)
+            activeTextBackground(drawable.item_text_back,mMenText)
+
+            inactiveTextColor("#D2D1D3",mAdultText,mChildrenText,mWomenText)
+            inactiveTextBackground(drawable.item_inactive_back,mAdultText,mChildrenText,mWomenText)
+
+            show(mMenConstraintLayout)
+            hide(mChildrenConstraintLayout,mWomenConstraintLayout,mAdultConstraintLayout)
+
+        }
+    }
+
 }
