@@ -21,7 +21,7 @@ class DetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
-        
+
         mDoctorImage = findViewById(R.id.doctorImage);
         val roundedImage = mDoctorImage.shapeAppearanceModel.toBuilder()
             .setAllCorners(CornerFamily.ROUNDED, 10f)
