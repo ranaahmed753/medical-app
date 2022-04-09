@@ -9,6 +9,7 @@ import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.codecamp.medicalapp.util.fadeInAnimation
 import com.codecamp.medicalapp.util.navigate
+import com.codecamp.medicalapp.util.slideLeftAnimation
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.CornerFamily
 
@@ -18,11 +19,14 @@ class DetailsActivity : AppCompatActivity() {
     private lateinit var mVideocamButton : ConstraintLayout;
     private lateinit var mDoctorImage : ShapeableImageView;
     private lateinit var mBackButton : ConstraintLayout;
+    private lateinit var mConstraintLayout: ConstraintLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
+        mConstraintLayout = findViewById(R.id.constraintLayout)
 
         mDoctorImage = findViewById(R.id.doctorImage);
+
         val roundedImage = mDoctorImage.shapeAppearanceModel.toBuilder()
             .setAllCorners(CornerFamily.ROUNDED, 10f)
             .build()
@@ -50,5 +54,10 @@ class DetailsActivity : AppCompatActivity() {
             fadeInAnimation(mVideocamButton)
             navigate(this,CallActivity(),::finish)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        slideLeftAnimation(mConstraintLayout)
     }
 }

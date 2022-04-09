@@ -12,6 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 fun Context.fadeInAnimation(widget: View){
     widget.startAnimation(AnimationUtils.loadAnimation(applicationContext,android.R.anim.fade_in))
 }
+
+fun Context.slideLeftAnimation(widget: View){
+    widget.startAnimation(AnimationUtils.loadAnimation(applicationContext,android.R.anim.slide_in_left))
+}
+
 fun hide(widget1 : View, widget2: View, widget3: View){
     widget1.visibility = View.GONE
     widget2.visibility = View.GONE

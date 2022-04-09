@@ -20,7 +20,7 @@ import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
 
-    //private lateinit var mNavigationDrawerIcon : ConstraintLayout;
+    private lateinit var mConstraintLayout: ConstraintLayout
     private lateinit var mAdultConstraintLayout : ConstraintLayout;
     private lateinit var mChildrenConstraintLayout : ConstraintLayout;
     private lateinit var mWomenConstraintLayout : ConstraintLayout;
@@ -59,10 +59,11 @@ class MainActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main)
 
+        mConstraintLayout = findViewById(R.id.constraintLayout)
+
         mNestedScrollView = findViewById(R.id.nestedScrollView);
         mNestedScrollView.isSmoothScrollingEnabled = true;
 
-        //mNavigationDrawerIcon = findViewById(R.id.navigationDrawerIcon);
         mAdultRecyclerView = findViewById(R.id.adultRecyclerview);
         mDoctorRecyclerView = findViewById(R.id.doctorRecyclerView);
         mChildrenRecyclerView = findViewById(R.id.childrenRecyclerview);
@@ -219,6 +220,11 @@ class MainActivity : AppCompatActivity() {
             hide(mChildrenConstraintLayout,mWomenConstraintLayout,mAdultConstraintLayout)
 
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        slideLeftAnimation(mConstraintLayout)
     }
 
 }
