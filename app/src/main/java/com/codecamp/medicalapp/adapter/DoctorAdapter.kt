@@ -23,6 +23,7 @@ class DoctorAdapter(var doctorList : ArrayList<Doctor>,var mContext : Context) :
         holder.bind(doctorList[position])
         holder.onClick(holder.doctorConstraintLayout,mContext,::onNavigateToDetailsPage,position,holder)
         holder.onClick(holder.callButton,mContext,::onNavigateToCall,position,holder)
+        holder.fadeInEffect(holder.doctorConstraintLayout,mContext)
     }
 
     override fun getItemCount(): Int {

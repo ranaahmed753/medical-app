@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.codecamp.medicalapp.R
 import com.codecamp.medicalapp.model.Doctor
 import com.codecamp.medicalapp.util.fadeInAnimation
+import com.codecamp.medicalapp.util.slideLeftAnimation
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.CornerFamily
 
@@ -41,6 +42,10 @@ class DoctorViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
             onDoSomething(position,holder)
 
         }
+    }
+
+    fun fadeInEffect(widget: View, context: Context){
+        context.fadeInAnimation(widget)
     }
 
     interface onItemClick{

@@ -23,7 +23,7 @@ class ChatActivity : AppCompatActivity() {
         doctorImage = findViewById(R.id.doctorImage)
 
         mBackButton = findViewById(R.id.backButton);
-        
+
         mBackButton.setOnClickListener {
             fadeInAnimation(mBackButton)
             navigate(this,MainActivity(),::finish)

@@ -127,7 +127,7 @@ class MainActivity : AppCompatActivity() {
         mAdultRecyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         mAdultRecyclerView.adapter = mAdultAdapter
 
-        for(j in 0..10){
+        for(j in 0..100){
             mDoctorList.add(Doctor("Iqbal Mahmud",drawable.doctor,"Orthopedic Specialist"))
         }
         mDoctorRecyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
